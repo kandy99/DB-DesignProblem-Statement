@@ -1,0 +1,87 @@
+Project ThemePark {
+  database_type: 'MSSQL'
+  Note: '''
+    # Ecommerce Database
+    **markdown content here**
+  '''
+}
+
+Table TicketCounter as U 
+{
+  TicketId int [pk, increment]
+  VisitorId int [ref: > V.ID]
+  RideDetails int [ref: > R.ID]
+  Discount int [ref: >  D.ID]
+  PurchasedDate datetime
+  TotalPrice decimal
+  DiscountedPrice decimal
+  BillablePRice decimal
+  Price int 
+  isCancelled bool
+  isRefund bool
+  ExpiryDate datetime
+  paymentGetways int [ref: > P.ID]
+  note: "table 'TicketCounter' contains Table information"
+}
+
+ Table Payment  as P{ 
+  ID int 
+  PaymentType varchar
+  PaymentDescription varchar
+ }
+
+ Table RideDetails as R{ 
+ ID int [pk, increment]
+ RideType varchar
+ RideDescription varchar
+
+
+ }
+
+
+
+Table Visitor as V {
+  ID int [pk, increment]
+  FirstName varchar
+  MiddleName varchar
+  PhoneNumber varchar
+  Emails varchar
+  Gender varchar
+  Category int [ref: > C.categoryId]
+  isVip bool
+  LockerId int [ref: > L.LockerId]
+
+
+  
+  note: "table 'Visitor' contains Visitor information"
+}
+
+Table Category as C {
+  categoryId int [pk]
+  categoryType varchar
+  
+
+}
+
+
+
+
+Table Locker as L {
+  LockerId int [pk]
+  LockerType varchar 
+  LockerDescription varchar
+
+  note: "table 'Locker' contains Locker information"
+  
+  }
+
+
+Table Discount as D{
+
+ID int [pk]
+DiscountType varchar
+DiscountDescription varchar
+
+}
+
+
